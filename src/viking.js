@@ -64,7 +64,7 @@ class Saxon extends Soldier {
 
 let Alfred = new Saxon(150, 40);
 console.log(Alfred.receiveDamage(Bjorn.attack()));
-console.log(Alfred.receiveDamage(Bjorn.attack()));
+
 
 // War
 class War {
@@ -82,11 +82,15 @@ class War {
   }
 
   vikingAttack() {
-    let randomSaxon =
-      this.saxonArmy[Math.floor(Math.random() * this.saxonArmy.length)];
-    let randomViking =
+    let randomIndex = Math.floor(Math.random() * this.saxonArmy.length);
+    let randomSaxon = this.saxonArmy[randomIndex];
+    let randomViking = 
       this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length)];
-    return randomSaxon.receiveDamage(randomViking.attack());
+      randomSaxon.receiveDamage(randomViking.attack());
+      if(randomSaxon.health <=0){
+       this.saxonArmy.splice(this.saxonArmy[randomIndex,1])
+      }
+  
   }
   saxonAttack() {
     let randomSaxon =
@@ -95,7 +99,23 @@ class War {
       this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length)];
     return randomViking.receiveDamage(randomSaxon.attack());
   }
+
+showStatus(){
+  if(this.saxonArmy.length === 0){
+    return `Vikings have won the war of the century!`
+  } else if(this.vikingArmy.length === 0){
+    return `Saxons have fought for their lives and survived another day...`
+  } else{
+    return `Vikings and Saxons are still in the thick of battle.`
+  }
 }
+}
+let fight = new War()
+fight.addViking(Bjorn)
+fight.addSaxon(Alfred)
+fight.saxonAttack()
+fight.vikingAttack()
+console.log(fight.showStatus())
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
