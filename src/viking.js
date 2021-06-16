@@ -9,8 +9,10 @@ class Soldier {
     return this.strength;
   };
 
-  receiveDamage = (damage) => {
+  receiveDamage(damage) {
+    console.log('Damage');
     this.health -= damage;
+    return this.health;
   };
 }
 
@@ -40,12 +42,32 @@ class Viking extends Soldier {
     return 'Odin Owns You All!';
   };
 }
+
 let Bjorn = new Viking('Bjorn', 3000, 100);
 console.log(Bjorn.battleCry());
 console.log(Bjorn.receiveDamage(Percy.attack()));
 console.log(Bjorn);
+
+
 // Saxon
-class Saxon {}
+class Saxon extends Soldier {
+
+  receiveDamage = (damage) => {
+    let health = super.receiveDamage(damage);
+    console.log(health);
+
+    if (health <= 0) {
+      return "A Saxon has died in combat"
+    } else {
+      return "A Saxon has received " + damage + " points of damage";
+    }
+
+  }
+}
+
+let Alfred = new Saxon(150, 40);
+console.log(Alfred.receiveDamage(Bjorn.attack()));
+console.log(Alfred.receiveDamage(Bjorn.attack()));
 
 // War
 class War {}
