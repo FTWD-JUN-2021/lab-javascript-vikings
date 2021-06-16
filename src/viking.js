@@ -13,7 +13,7 @@ class Soldier {
     console.log('Damage');
     this.health -= damage;
     return this.health;
-  };
+  }
 }
 
 let Percy = new Soldier(50, 50);
@@ -48,21 +48,18 @@ console.log(Bjorn.battleCry());
 console.log(Bjorn.receiveDamage(Percy.attack()));
 console.log(Bjorn);
 
-
 // Saxon
 class Saxon extends Soldier {
-
   receiveDamage = (damage) => {
     let health = super.receiveDamage(damage);
     console.log(health);
 
     if (health <= 0) {
-      return "A Saxon has died in combat"
+      return 'A Saxon has died in combat';
     } else {
-      return "A Saxon has received " + damage + " points of damage";
+      return 'A Saxon has received ' + damage + ' points of damage';
     }
-
-  }
+  };
 }
 
 let Alfred = new Saxon(150, 40);
@@ -70,7 +67,35 @@ console.log(Alfred.receiveDamage(Bjorn.attack()));
 console.log(Alfred.receiveDamage(Bjorn.attack()));
 
 // War
-class War {}
+class War {
+  constructor() {
+    this.vikingArmy = [];
+    this.saxonArmy = [];
+  }
+
+  addViking(v) {
+    this.vikingArmy.push(v);
+  }
+
+  addSaxon(s) {
+    this.saxonArmy.push(s);
+  }
+
+  vikingAttack() {
+    let randomSaxon =
+      this.saxonArmy[Math.floor(Math.random() * this.saxonArmy.length)];
+    let randomViking =
+      this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length)];
+    return randomSaxon.receiveDamage(randomViking.attack());
+  }
+  saxonAttack() {
+    let randomSaxon =
+      this.saxonArmy[Math.floor(Math.random() * this.saxonArmy.length)];
+    let randomViking =
+      this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length)];
+    return randomViking.receiveDamage(randomSaxon.attack());
+  }
+}
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
